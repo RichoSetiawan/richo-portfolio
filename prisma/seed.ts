@@ -18,10 +18,10 @@ async function main() {
   });
 
   const contacts = [
-    { id: "contact-linkedin", type: "linkedin", label: "LinkedIn", value: "https://linkedin.com/in/richo-setiawan", icon: "Linkedin", order: 0 },
-    { id: "contact-instagram", type: "instagram", label: "Instagram", value: "https://instagram.com/richo.setiawan", icon: "Instagram", order: 1 },
-    { id: "contact-whatsapp", type: "whatsapp", label: "WhatsApp", value: "https://wa.me/628123456789", icon: "MessageCircle", order: 2 },
-    { id: "contact-email", type: "email", label: "Email", value: "mailto:richo.setiawan@example.com", icon: "Mail", order: 3 },
+    { id: "contact-linkedin", type: "linkedin", label: "LinkedIn", value: "https://www.linkedin.com/in/richosetiawan/", icon: "Linkedin", order: 0 },
+    { id: "contact-instagram", type: "instagram", label: "Instagram", value: "https://www.instagram.com/richoveritas/?hl=en", icon: "Instagram", order: 1 },
+    { id: "contact-whatsapp", type: "whatsapp", label: "WhatsApp", value: "https://wa.me/6288213144917", icon: "MessageCircle", order: 2 },
+    { id: "contact-email", type: "email", label: "Email", value: "mailto:richosetiawan37@gmail.com", icon: "Mail", order: 3 },
   ];
   for (const c of contacts) {
     await prisma.contact.upsert({ where: { id: c.id }, update: {}, create: c });
