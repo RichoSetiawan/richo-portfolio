@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { GraduationCap, Linkedin, Instagram, MessageCircle, Mail } from "lucide-react";
 import type { Profile, Contact } from "@/types";
 
@@ -8,7 +8,7 @@ const iconMap: Record<string, React.ElementType> = {
   Linkedin, Instagram, MessageCircle, Mail,
 };
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -16,7 +16,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 20, stiffness: 100 } },
 };
@@ -39,7 +39,8 @@ export default function HeroSection({ profile, contacts }: HeroSectionProps) {
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.1 }}
         className="section-container text-center py-20"
       >
         {/* Name */}
@@ -82,11 +83,12 @@ export default function HeroSection({ profile, contacts }: HeroSectionProps) {
                 rel="noopener noreferrer"
                 title={c.label}
                 initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
                 transition={{ delay: 0.8 + i * 0.1, type: "spring", damping: 15 }}
-                className="w-12 h-12 rounded-full flex items-center justify-center bg-primary-accent/15 text-primary-accent hover:bg-primary-accent hover:text-white hover:shadow-lg hover:shadow-primary-accent/25 hover:scale-110 transition-all duration-200"
+                className="w-14 h-14 rounded-full flex items-center justify-center bg-primary-accent/15 text-primary-accent hover:bg-primary-accent hover:text-white hover:shadow-lg hover:shadow-primary-accent/25 hover:scale-110 transition-all duration-200"
               >
-                <Icon size={20} />
+                <Icon size={24} />
               </motion.a>
             );
           })}
@@ -95,7 +97,8 @@ export default function HeroSection({ profile, contacts }: HeroSectionProps) {
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false }}
           transition={{ delay: 1.5 }}
           className="mt-16"
         >

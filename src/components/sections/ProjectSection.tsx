@@ -23,7 +23,7 @@ export default function ProjectSection({ projects, showSeeMore = true }: Props) 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-2 gradient-text">Projects</h2>
@@ -45,19 +45,20 @@ export default function ProjectSection({ projects, showSeeMore = true }: Props) 
                 key={proj.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="h-full"
               >
                 <div className="h-full rounded-2xl bg-card-bg border border-border-subtle overflow-hidden group hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-accent/10 transition-all duration-300 flex flex-col">
                   {/* Image area */}
-                  <div className="h-44 bg-gradient-to-br from-primary-accent/15 via-secondary-accent/10 to-primary-dark flex items-center justify-center relative overflow-hidden">
+                  <div className="h-48 bg-gradient-to-br from-primary-accent/15 via-secondary-accent/10 to-primary-dark flex items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-card-bg/80 to-transparent" />
-                    <TypeIcon size={48} className="text-primary-accent/40 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                    <TypeIcon size={56} className="text-primary-accent/40 relative z-10 group-hover:scale-110 transition-transform duration-300" />
                   </div>
 
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold text-text-primary mb-2">{proj.title}</h3>
-                    <p className="text-sm text-text-secondary line-clamp-2 mb-4 flex-1">
+                  <div className="p-6 md:p-8 flex flex-col flex-1">
+                    <h3 className="text-xl font-bold text-text-primary mb-3">{proj.title}</h3>
+                    <p className="text-base text-text-secondary line-clamp-3 mb-6 flex-1">
                       {proj.description}
                     </p>
 
@@ -74,9 +75,9 @@ export default function ProjectSection({ projects, showSeeMore = true }: Props) 
 
                     <Link
                       href={href}
-                      className="w-full py-2.5 rounded-lg bg-primary-accent text-white text-sm font-medium text-center hover:bg-primary-accent/90 hover:shadow-lg hover:shadow-primary-accent/25 transition-all duration-200 flex items-center justify-center gap-2"
+                      className="w-full mt-auto py-3 rounded-xl bg-primary-accent text-white text-base font-semibold text-center hover:bg-primary-accent/90 hover:shadow-lg hover:shadow-primary-accent/25 transition-all duration-200 flex items-center justify-center gap-2"
                     >
-                      Let&apos;s Go! <ArrowRight size={16} />
+                      Let&apos;s Go! <ArrowRight size={18} />
                     </Link>
                   </div>
                 </div>
@@ -89,14 +90,14 @@ export default function ProjectSection({ projects, showSeeMore = true }: Props) 
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mt-10"
+            viewport={{ once: false, amount: 0.5 }}
+            className="text-center mt-12"
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-primary-accent text-primary-accent text-sm font-medium hover:bg-primary-accent/10 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-primary-accent text-primary-accent text-base font-semibold hover:bg-primary-accent/10 transition-colors"
             >
-              View All Projects <ArrowRight size={16} />
+              View All Projects <ArrowRight size={20} />
             </Link>
           </motion.div>
         )}

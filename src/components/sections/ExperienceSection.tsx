@@ -27,7 +27,7 @@ export default function ExperienceSection({ experiences }: Props) {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-2 gradient-text">Experience</h2>
@@ -41,51 +41,57 @@ export default function ExperienceSection({ experiences }: Props) {
           navigation
           pagination={{ clickable: true }}
           breakpoints={{
-            640: { slidesPerView: 1.5 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            640: { slidesPerView: 1.2 },
+            768: { slidesPerView: 1.8 },
+            1024: { slidesPerView: 2.2 },
           }}
-          className="pb-14"
+          className="pb-16"
         >
           {experiences.map((exp, i) => (
             <SwiperSlide key={exp.id}>
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="h-full"
               >
-                <div className="rounded-2xl bg-card-bg border border-border-subtle overflow-hidden group hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-accent/10 transition-all duration-300">
+                <div 
+                  className="h-full rounded-2xl bg-card-bg border border-border-subtle overflow-hidden group hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-accent/10 transition-all duration-300 cursor-pointer flex flex-col"
+                  onClick={() => setSelected(exp)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && setSelected(exp)}
+                >
                   {/* Company header */}
                   <div className="h-32 bg-gradient-to-br from-primary-accent/20 to-secondary-accent/20 flex items-center justify-center">
                     <Briefcase size={40} className="text-primary-accent/60" />
                   </div>
 
-                  <div className="p-5">
-                    <h3 className="text-lg font-semibold text-text-primary mb-1">{exp.position}</h3>
-                    <p className="text-sm text-primary-accent font-medium mb-2">{exp.company}</p>
+                  <div className="p-6 md:p-8 flex-1 flex flex-col">
+                    <div className="ml-1 md:ml-2 flex-1">
+                      <h3 className="text-xl font-bold text-text-primary mb-1">{exp.position}</h3>
+                      <p className="text-base text-primary-accent font-semibold mb-3">{exp.company}</p>
 
-                    <div className="flex items-center gap-3 text-xs text-text-secondary mb-3">
-                      <span className="flex items-center gap-1">
-                        <Calendar size={12} />
-                        {formatDate(exp.startDate)} — {exp.endDate ? formatDate(exp.endDate) : "Present"}
-                      </span>
-                      {exp.location && (
-                        <span className="flex items-center gap-1">
-                          <MapPin size={12} />
-                          {exp.location}
+                      <div className="flex items-center gap-3 text-sm text-text-secondary mb-4">
+                        <span className="flex items-center gap-1.5">
+                          <Calendar size={14} />
+                          {formatDate(exp.startDate)} — {exp.endDate ? formatDate(exp.endDate) : "Present"}
                         </span>
-                      )}
+                        {exp.location && (
+                          <span className="flex items-center gap-1.5">
+                            <MapPin size={14} />
+                            {exp.location}
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-base text-text-secondary line-clamp-3 mb-6 relative pl-3 border-l-2 border-primary-accent/30">{exp.description}</p>
                     </div>
 
-                    <p className="text-sm text-text-secondary line-clamp-2 mb-4">{exp.description}</p>
-
-                    <button
-                      onClick={() => setSelected(exp)}
-                      className="w-full py-2 rounded-lg bg-primary-accent/10 text-primary-accent text-sm font-medium hover:bg-primary-accent/20 transition-colors"
-                    >
+                    <div className="w-full mt-auto py-2.5 rounded-xl bg-primary-accent/10 text-primary-accent text-sm font-semibold text-center group-hover:bg-primary-accent/20 transition-colors">
                       View Details
-                    </button>
+                    </div>
                   </div>
                 </div>
               </motion.div>

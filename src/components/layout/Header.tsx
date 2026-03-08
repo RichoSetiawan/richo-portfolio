@@ -6,9 +6,9 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { label: "Home", href: "#hero" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
+  { label: "Home", href: "/#hero" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Projects", href: "/projects" },
 ];
 
 export default function Header() {
@@ -29,23 +29,23 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="section-container flex items-center justify-between h-[72px]">
+      <div className="section-container flex items-center justify-between h-[88px]">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold gradient-text hover:opacity-80 transition-opacity">
+        <Link href="/" className="text-2xl font-bold gradient-text hover:opacity-80 transition-opacity tracking-tight">
           RS.
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-10">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-text-secondary hover:text-primary-accent transition-colors relative group"
+              className="text-base font-semibold text-text-secondary hover:text-primary-accent transition-colors relative group"
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-accent transition-all duration-300 group-hover:w-full" />
-            </a>
+              <span className="absolute -bottom-1.5 left-0 w-0 h-0.5 bg-primary-accent transition-all duration-300 group-hover:w-full" />
+            </Link>
           ))}
         </nav>
 
@@ -55,7 +55,7 @@ export default function Header() {
           className="md:hidden p-2 text-text-secondary hover:text-primary-accent transition-colors"
           aria-label="Toggle menu"
         >
-          {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
@@ -70,14 +70,14 @@ export default function Header() {
           >
             <nav className="flex flex-col p-4 gap-2">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className="text-base font-medium text-text-secondary hover:text-primary-accent transition-colors py-3 px-4 rounded-lg hover:bg-white/5"
+                  className="text-lg font-semibold text-text-secondary hover:text-primary-accent transition-colors py-4 px-4 rounded-xl hover:bg-white/5"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </motion.div>
