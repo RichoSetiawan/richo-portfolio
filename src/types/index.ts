@@ -33,7 +33,7 @@ export interface Project {
     description: string | null;
     fullDescription: string | null;
     imageUrl: string | null;
-    technologies: string | null;
+    technologies: string | null | undefined;
     githubUrl: string | null;
     liveUrl: string | null;
     category: string;

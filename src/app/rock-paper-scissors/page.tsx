@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RotateCcw, Trophy, ArrowLeft } from "lucide-react";
+import { RotateCcw, Trophy, ArrowLeft, Home } from "lucide-react";
 import Link from "next/link";
 
 type Choice = "rock" | "paper" | "scissors";
@@ -70,6 +70,15 @@ export default function RockPaperScissorsPage() {
       <div className="section-container max-w-2xl">
         <Link href="/#projects" className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-primary-accent mb-8 transition-colors">
           <ArrowLeft size={16} /> Back to Portfolio
+        </Link>
+
+        <Link
+          href="/"
+          aria-label="Back to Home"
+          title="Back to Home"
+          className="fixed bottom-6 right-6 md:bottom-7 md:right-7 lg:bottom-8 lg:right-8 z-50 w-14 h-14 md:w-[60px] md:h-[60px] lg:w-16 lg:h-16 rounded-full bg-primary-accent text-white flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-primary-accent/40 active:scale-95 transition-all duration-300 group"
+        >
+          <Home size={24} className="group-hover:-rotate-12 transition-transform" />
         </Link>
 
         <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-2">Rock Paper Scissors</h1>

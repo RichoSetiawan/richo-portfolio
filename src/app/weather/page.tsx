@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { CloudSun, Droplets, Thermometer, Wind, MapPin, ArrowLeft, RefreshCw } from "lucide-react";
+import { CloudSun, Droplets, Thermometer, Wind, MapPin, ArrowLeft, RefreshCw, Home } from "lucide-react";
 import Link from "next/link";
 
 interface WeatherData {
@@ -56,6 +56,15 @@ export default function WeatherPage() {
       <div className="section-container max-w-lg">
         <Link href="/#projects" className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-primary-accent mb-8 transition-colors">
           <ArrowLeft size={16} /> Back to Portfolio
+        </Link>
+
+        <Link
+          href="/"
+          aria-label="Back to Home"
+          title="Back to Home"
+          className="fixed bottom-6 right-6 md:bottom-7 md:right-7 lg:bottom-8 lg:right-8 z-50 w-14 h-14 md:w-[60px] md:h-[60px] lg:w-16 lg:h-16 rounded-full bg-primary-accent text-white flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-primary-accent/40 active:scale-95 transition-all duration-300 group"
+        >
+          <Home size={24} className="group-hover:-rotate-12 transition-transform" />
         </Link>
 
         <div className="flex items-center gap-3 mb-2">

@@ -98,3 +98,17 @@ body {
   background: var(--primary-accent) !important;
   opacity: 1 !important;
 }
+
+/* Background Stars Pattern */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.5; }
+}
+
+.stars-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: 0 0;
+  animation: twinkle 5s infinite ease-in-out;
+  will-change: opacity;
+}

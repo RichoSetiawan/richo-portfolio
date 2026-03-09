@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Trash2, Check, Download, ArrowLeft, ListChecks, X } from "lucide-react";
+import { Plus, Trash2, Check, Download, ArrowLeft, ListChecks, X, Home } from "lucide-react";
 import Link from "next/link";
 
 interface Todo {
@@ -82,6 +82,15 @@ export default function TodoPage() {
           <ArrowLeft size={16} /> Back to Portfolio
         </Link>
 
+        <Link
+          href="/"
+          aria-label="Back to Home"
+          title="Back to Home"
+          className="fixed bottom-6 right-6 md:bottom-7 md:right-7 lg:bottom-8 lg:right-8 z-50 w-14 h-14 md:w-[60px] md:h-[60px] lg:w-16 lg:h-16 rounded-full bg-primary-accent text-white flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-primary-accent/40 active:scale-95 transition-all duration-300 group"
+        >
+          <Home size={24} className="group-hover:-rotate-12 transition-transform" />
+        </Link>
+
         <div className="flex items-center gap-3 mb-2">
           <ListChecks size={28} className="text-primary-accent" />
           <h1 className="text-3xl font-bold gradient-text">To-Do List</h1>
@@ -113,9 +122,8 @@ export default function TodoPage() {
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors ${
-                  filter === f ? "bg-primary-accent/15 text-primary-accent" : "text-text-secondary hover:text-text-primary"
-                }`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors ${filter === f ? "bg-primary-accent/15 text-primary-accent" : "text-text-secondary hover:text-text-primary"
+                  }`}
               >
                 {f}
               </button>
@@ -149,11 +157,10 @@ export default function TodoPage() {
               >
                 <button
                   onClick={() => toggleTodo(t.id)}
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
-                    t.completed
+                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${t.completed
                       ? "bg-primary-accent border-primary-accent"
                       : "border-border-subtle hover:border-primary-accent/50"
-                  }`}
+                    }`}
                 >
                   {t.completed && <Check size={12} className="text-white" />}
                 </button>
