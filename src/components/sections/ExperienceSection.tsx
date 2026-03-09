@@ -20,6 +20,11 @@ interface Props {
 
 export default function ExperienceSection({ experiences }: Props) {
   const [selected, setSelected] = useState<Experience | null>(null);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (id: string) => {
+    setImageErrors((prev) => ({ ...prev, [id]: true }));
+  };
 
   return (
     <section id="experience" className="py-24">
@@ -47,56 +52,70 @@ export default function ExperienceSection({ experiences }: Props) {
           }}
           className="pb-16"
         >
-          {experiences.map((exp, i) => (
-            <SwiperSlide key={exp.id}>
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.1 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="h-full"
-              >
-                <div 
-                  className="h-full rounded-2xl bg-card-bg border border-border-subtle overflow-hidden group hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-accent/10 transition-all duration-300 cursor-pointer flex flex-col"
-                  onClick={() => setSelected(exp)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && setSelected(exp)}
+          {experiences.map((exp, i) => {
+            const hasImageError = imageErrors[exp.id];
+            const showImage = exp.imageUrl && !hasImageError;
+
+            return (
+              <SwiperSlide key={exp.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.1 }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className="h-full"
                 >
-                  {/* Company header */}
-                  <div className="h-32 bg-gradient-to-br from-primary-accent/20 to-secondary-accent/20 flex items-center justify-center">
-                    <Briefcase size={40} className="text-primary-accent/60" />
-                  </div>
+                  <div
+                    className="h-full rounded-2xl bg-card-bg border border-border-subtle overflow-hidden group hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-accent/10 transition-all duration-300 cursor-pointer flex flex-col"
+                    onClick={() => setSelected(exp)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && setSelected(exp)}
+                  >
+                    {/* Company header dengan fallback image */}
+                    <div className="h-32 bg-gradient-to-br from-primary-accent/20 to-secondary-accent/20 flex items-center justify-center relative overflow-hidden">
+                      {showImage ? (
+                        <img
+                          src={String(exp.imageUrl)}
+                          alt={exp.company}
+                          className="w-full h-full object-cover"
+                          onError={() => handleImageError(exp.id)}
+                        />
+                      ) : (
+                        <Briefcase size={40} className="text-primary-accent/60" />
+                      )}
+                    </div>
 
-                  <div className="p-6 md:p-8 flex-1 flex flex-col">
-                    <div className="ml-1 md:ml-2 flex-1">
-                      <h3 className="text-xl font-bold text-text-primary mb-1">{exp.position}</h3>
-                      <p className="text-base text-primary-accent font-semibold mb-3">{exp.company}</p>
+                    <div className="p-6 md:p-8 flex-1 flex flex-col">
+                      <div className="ml-1 md:ml-2 flex-1">
+                        <h3 className="text-xl font-bold text-text-primary mb-1">{exp.position}</h3>
+                        <p className="text-base text-primary-accent font-semibold mb-3">{exp.company}</p>
 
-                      <div className="flex items-center gap-3 text-sm text-text-secondary mb-4">
-                        <span className="flex items-center gap-1.5">
-                          <Calendar size={14} />
-                          {formatDate(exp.startDate)} — {exp.endDate ? formatDate(exp.endDate) : "Present"}
-                        </span>
-                        {exp.location && (
+                        <div className="flex items-center gap-3 text-sm text-text-secondary mb-4">
                           <span className="flex items-center gap-1.5">
-                            <MapPin size={14} />
-                            {exp.location}
+                            <Calendar size={14} />
+                            {formatDate(exp.startDate)} — {exp.endDate ? formatDate(exp.endDate) : "Present"}
                           </span>
-                        )}
+                          {exp.location && (
+                            <span className="flex items-center gap-1.5">
+                              <MapPin size={14} />
+                              {exp.location}
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="text-base text-text-secondary line-clamp-3 mb-6 relative pl-3 border-l-2 border-primary-accent/30">{exp.description}</p>
                       </div>
 
-                      <p className="text-base text-text-secondary line-clamp-3 mb-6 relative pl-3 border-l-2 border-primary-accent/30">{exp.description}</p>
-                    </div>
-
-                    <div className="w-full mt-auto py-2.5 rounded-xl bg-primary-accent/10 text-primary-accent text-sm font-semibold text-center group-hover:bg-primary-accent/20 transition-colors">
-                      View Details
+                      <div className="w-full mt-auto py-2.5 rounded-xl bg-primary-accent/10 text-primary-accent text-sm font-semibold text-center group-hover:bg-primary-accent/20 transition-colors">
+                        View Details
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            </SwiperSlide>
-          ))}
+                </motion.div>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
 
