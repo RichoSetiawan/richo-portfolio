@@ -23,11 +23,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "glass shadow-lg shadow-black/20"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="section-container flex items-center justify-between h-[88px]">
         {/* Logo */}
@@ -68,13 +67,13 @@ export default function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden glass border-t border-border-subtle"
           >
-            <nav className="flex flex-col p-4 gap-2">
+            <nav className="flex flex-col p-4 gap-2 items-center text-center">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className="text-lg font-semibold text-text-secondary hover:text-primary-accent transition-colors py-4 px-4 rounded-xl hover:bg-white/5"
+                  className="text-lg font-semibold text-text-secondary hover:text-primary-accent transition-colors py-4 px-4 rounded-xl hover:bg-white/5 text-center w-full"
                 >
                   {item.label}
                 </Link>

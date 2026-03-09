@@ -32,7 +32,9 @@ export default async function HomePage() {
     <>
       <HeroSection profile={serialized.profile} contacts={serialized.contacts} />
       <ExperienceSection experiences={serialized.experiences} />
+      <div className="w-full h-4 md:h-8 lg:h-8" aria-hidden="true"></div>
       <ProjectSection projects={serialized.projects} />
+      <div className="w-full h-4 md:h-8 lg:h-8" aria-hidden="true"></div>
     </>
   );
 }

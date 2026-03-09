@@ -35,9 +35,9 @@ export default function ProjectSection({ projects, showSeeMore = true }: Props) 
             const TypeIcon = typeIcons[proj.projectType ?? ""] ?? ExternalLink;
             const href = proj.isDefault
               ? proj.projectType === "game" ? "/rock-paper-scissors"
-              : proj.projectType === "todo" ? "/todo"
-              : proj.projectType === "weather" ? "/weather"
-              : proj.liveUrl ?? "#"
+                : proj.projectType === "todo" ? "/todo"
+                  : proj.projectType === "weather" ? "/weather"
+                    : proj.liveUrl ?? "#"
               : proj.liveUrl ?? "#";
 
             return (
@@ -86,6 +86,8 @@ export default function ProjectSection({ projects, showSeeMore = true }: Props) 
           })}
         </div>
 
+        <div className="w-full h-4 md:h-8 lg:h-8" aria-hidden="true"></div>
+
         {showSeeMore && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -95,9 +97,17 @@ export default function ProjectSection({ projects, showSeeMore = true }: Props) 
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-primary-accent text-primary-accent text-base font-semibold hover:bg-primary-accent/10 transition-colors"
+              className="inline-flex items-center gap-2 md:gap-3 
+             px-8 py-3 md:px-12 md:py-5 
+             rounded-full 
+             border border-primary-accent 
+             text-primary-accent 
+             text-base md:text-xl 
+             font-semibold 
+             hover:bg-primary-accent/10 
+             transition-colors"
             >
-              View All Projects <ArrowRight size={20} />
+              View All Projects <ArrowRight size={20} className="md:size-10" />
             </Link>
           </motion.div>
         )}
