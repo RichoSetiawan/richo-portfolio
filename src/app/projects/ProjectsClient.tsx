@@ -19,7 +19,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
     const starCount = isMobile ? Math.floor(Math.random() * 21) + 30 : Math.floor(Math.random() * 51) + 50; // 30-50 mobile, 50-100 desktop
-    
+
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 100}%`,
@@ -28,7 +28,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
       opacity: Math.random() * 0.5 + 0.3, // 0.3 - 0.8
       delay: `${Math.random() * 5}s`, // 0s - 5s
     }));
-    
+
     setStars(newStars);
   }, []);
 
@@ -53,7 +53,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
 
   const filteredProjects = useMemo(() => {
     if (!activeQuery.trim()) return projects;
-    
+
     const q = activeQuery.toLowerCase().trim();
     return projects.filter((proj) => (
       (proj.title?.toLowerCase().includes(q)) ||
@@ -83,7 +83,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
           />
         ))}
       </div>
-      
+
       {/* Floating Home Button */}
       <Link
         href="/"
@@ -109,7 +109,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
             <div className="relative w-full shadow-lg shadow-black/10 rounded-full">
               <input
                 type="text"
-                placeholder="Search projects by title, description, or tech stack..."
+                placeholder="Search projects..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -131,88 +131,91 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
             </div>
           </div>
 
-        {/* Project Grid */}
-        <div className="w-full pt-20 md:pt-28 lg:pt-36">
-          {filteredProjects.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center text-text-secondary py-24 bg-card-bg/30 rounded-3xl border border-border-subtle/50 backdrop-blur-sm mx-auto max-w-3xl"
-          >
-            <Search size={48} className="mx-auto mb-6 text-text-secondary/50" />
-            <p className="text-xl md:text-2xl font-semibold text-text-primary mb-3">No projects found</p>
-            <p className="text-base md:text-lg">
-              We couldn&apos;t find anything matching &quot;<span className="text-primary-accent">{activeQuery}</span>&quot;.
-            </p>
-            <button
-              onClick={() => setSearchTerm("")}
-              className="mt-8 px-6 py-3 rounded-xl bg-card-bg border border-border-subtle text-text-primary hover:text-primary-accent hover:border-primary-accent/50 transition-colors"
-            >
-              Clear search input
-            </button>
-          </motion.div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-center">
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((proj) => {
-                const TypeIcon = iconMap[proj.projectType ?? "Code"] ?? Code;
-                const href = proj.liveUrl ?? (proj.projectType === "WebApp" ? `/${proj.title.toLowerCase().replace(/\s+/g, "-")}` : "#");
+          {/* Guaranteed Physical Spacer */}
+          <div className="w-full h-4 md:h-8 lg:h-8" aria-hidden="true"></div>
 
-                return (
-                  <motion.div
-                    key={proj.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3 }}
-                    className="h-full"
-                  >
-                    {/* Entire Card wrapped in Link for clickability */}
-                    <Link
-                      href={href}
-                      className="block h-full rounded-3xl bg-card-bg border border-border-subtle p-2 md:p-3 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-accent/15 transition-all duration-300 flex flex-col focus:outline-none focus:ring-4 focus:ring-primary-accent/30 cursor-pointer"
-                      style={{ willChange: "transform, box-shadow" }}
-                    >
-                      {/* Image Area with spacing from border */}
-                      <div className="h-48 md:h-56 rounded-2xl bg-gradient-to-br from-primary-accent/15 via-secondary-accent/10 to-primary-dark flex items-center justify-center relative overflow-hidden shrink-0">
-                        <div className="absolute inset-0 bg-gradient-to-t from-card-bg/80 to-transparent mix-blend-overlay" />
-                        <TypeIcon size={64} className="text-primary-accent/40 relative z-10 group-hover:scale-110 group-hover:text-primary-accent/60 transition-all duration-500" />
-                      </div>
+          {/* Project Grid */}
+          <div className="w-full">
+            {filteredProjects.length === 0 ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center text-text-secondary py-24 bg-card-bg/30 rounded-3xl border border-border-subtle/50 backdrop-blur-sm mx-auto max-w-3xl"
+              >
+                <Search size={48} className="mx-auto mb-6 text-text-secondary/50" />
+                <p className="text-xl md:text-2xl font-semibold text-text-primary mb-3">No projects found</p>
+                <p className="text-base md:text-lg">
+                  We couldn&apos;t find anything matching &quot;<span className="text-primary-accent">{activeQuery}</span>&quot;.
+                </p>
+                <button
+                  onClick={() => setSearchTerm("")}
+                  className="mt-8 px-6 py-3 rounded-xl bg-card-bg border border-border-subtle text-text-primary hover:text-primary-accent hover:border-primary-accent/50 transition-colors"
+                >
+                  Clear search input
+                </button>
+              </motion.div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-center">
+                <AnimatePresence mode="popLayout">
+                  {filteredProjects.map((proj) => {
+                    const TypeIcon = iconMap[proj.projectType ?? "Code"] ?? Code;
+                    const href = proj.liveUrl ?? (proj.projectType === "WebApp" ? `/${proj.title.toLowerCase().replace(/\s+/g, "-")}` : "#");
 
-                      {/* Content Area with consistent internal padding and spacing hierarchy */}
-                      <div className="p-4 md:p-6 lg:p-8 flex flex-col flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-4 group-hover:text-primary-accent transition-colors">
-                          {proj.title}
-                        </h3>
-                        
-                        <p className="text-base text-text-secondary line-clamp-3 md:line-clamp-4 mb-4 flex-1 leading-relaxed">
-                          {proj.description}
-                        </p>
+                    return (
+                      <motion.div
+                        key={proj.id}
+                        layout
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.3 }}
+                        className="h-full"
+                      >
+                        {/* Entire Card wrapped in Link for clickability */}
+                        <Link
+                          href={href}
+                          className="block h-full rounded-3xl bg-card-bg border border-border-subtle p-2 md:p-3 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-accent/15 transition-all duration-300 flex flex-col focus:outline-none focus:ring-4 focus:ring-primary-accent/30 cursor-pointer"
+                          style={{ willChange: "transform, box-shadow" }}
+                        >
+                          {/* Image Area with spacing from border */}
+                          <div className="h-48 md:h-56 rounded-2xl bg-gradient-to-br from-primary-accent/15 via-secondary-accent/10 to-primary-dark flex items-center justify-center relative overflow-hidden shrink-0">
+                            <div className="absolute inset-0 bg-gradient-to-t from-card-bg/80 to-transparent mix-blend-overlay" />
+                            <TypeIcon size={64} className="text-primary-accent/40 relative z-10 group-hover:scale-110 group-hover:text-primary-accent/60 transition-all duration-500" />
+                          </div>
 
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {proj.technologies?.split(",").map((tech) => (
-                            <span 
-                              key={tech} 
-                              className="px-3 py-1.5 text-xs font-medium rounded-full bg-border-subtle/30 text-text-secondary group-hover:bg-primary-accent/10 group-hover:text-primary-accent border border-transparent group-hover:border-primary-accent/20 transition-colors"
-                            >
-                              {tech.trim()}
-                            </span>
-                          ))}
-                        </div>
+                          {/* Content Area with consistent internal padding and spacing hierarchy */}
+                          <div className="p-4 md:p-6 lg:p-8 flex flex-col flex-1">
+                            <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-4 group-hover:text-primary-accent transition-colors">
+                              {proj.title}
+                            </h3>
 
-                        {/* Visual CTA Button */}
-                        <div className="w-full mt-auto mb-0 py-3.5 rounded-xl bg-primary-accent/10 text-primary-accent text-base font-bold text-center group-hover:bg-primary-accent group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary-accent/25 transition-all duration-300 flex items-center justify-center gap-2">
-                          Let&apos;s Go! <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-        )}
+                            <p className="text-base text-text-secondary line-clamp-3 md:line-clamp-4 mb-4 flex-1 leading-relaxed">
+                              {proj.description}
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 mb-4">
+                              {proj.technologies?.split(",").map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="px-3 py-1.5 text-xs font-medium rounded-full bg-border-subtle/30 text-text-secondary group-hover:bg-primary-accent/10 group-hover:text-primary-accent border border-transparent group-hover:border-primary-accent/20 transition-colors"
+                                >
+                                  {tech.trim()}
+                                </span>
+                              ))}
+                            </div>
+
+                            {/* Visual CTA Button */}
+                            <div className="w-full mt-auto mb-0 py-3.5 rounded-xl bg-primary-accent/10 text-primary-accent text-base font-bold text-center group-hover:bg-primary-accent group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary-accent/25 transition-all duration-300 flex items-center justify-center gap-2">
+                              Let&apos;s Go! <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              </div>
+            )}
           </div>
         </div>
       </div>
